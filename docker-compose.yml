@@ -1,0 +1,22 @@
+services:
+  backend:
+    image: jafber/myeloma-predict-backend
+    build:
+      context: ./backend
+
+  frontend:
+    image: jafber/myeloma-predict-frontend
+    build:
+      context: ./frontend
+    depends_on:
+      - backend
+    environment:
+      - NODE_ENV=production
+
+  caddy:
+    image: caddy:2.11
+    ports:
+      - "5173:5173"
+    volumes:
+      - $PWD/conf:/etc/caddy
+  

@@ -1,9 +1,13 @@
-## Tech Stack Overview
+## Quick Start
+
+Run `docker compose up` and open [http://localhost:5173](http://localhost:5173) to see the full web app.
+
+## Setup For Local Development
+
+### Tech Stack Overview
 
 - `frontend`: Vite + React + Typescript web app. Gets built into a simple static HTML page.
 - `backend`: FastAPI Python server. Offers a simple JSON REST API to run the multiple myeloma prediction model.
-
-## Setup For Local Development
 
 ### Frontend
 
