@@ -16,6 +16,9 @@ RUN npm run build
 # Runtime stage
 FROM caddy:2-alpine
 
+# curl for health check
+RUN apk --no-cache add curl
+
 WORKDIR /srv
 
 COPY --from=build /app/dist /srv

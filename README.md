@@ -1,6 +1,8 @@
 ## Quick Start
 
-Run `docker compose up` and open [http://localhost:5173](http://localhost:5173) to see the full web app.
+1. Run `docker compose up`
+2. Run `docker compose ps`. The containers for backend and frontend should show "healthy" status.
+3. Open [http://localhost:5173](http://localhost:5173) to see the full web app.
 
 ## Setup For Local Development
 

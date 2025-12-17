@@ -3,6 +3,8 @@ services:
     image: jafber/myeloma-predict-backend
     build:
       context: ./backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/healthz"]
 
   frontend:
     image: jafber/myeloma-predict-frontend
@@ -12,6 +14,8 @@ services:
       - backend
     environment:
       - NODE_ENV=production
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
 
   caddy:
     image: caddy:2.11
