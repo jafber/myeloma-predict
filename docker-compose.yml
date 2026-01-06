@@ -5,6 +5,8 @@ services:
       context: ./backend
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/healthz"]
+    ports:
+      - "8000:8000"
 
   frontend:
     image: jafber/myeloma-predict-frontend

@@ -54,6 +54,7 @@ function Calculator() {
                     required: "Serum Free Light Chain Ratio is required",
                     min: { value: 0.0, message: "Ratio is unreasonably low" },
                     max: { value: 1000, message: "Ratio is unreasonably high" },
+                    valueAsNumber: true,
                   }
                   )}
                 />
@@ -69,6 +70,7 @@ function Calculator() {
                     required: "M-Spike is required",
                     min: { value: 0.0, message: "M-Spike is unreasonably low" },
                     max: { value: 10.0, message: "M-Spike is unreasonably high" },
+                    valueAsNumber: true,
                   })}
                 />
 
@@ -83,6 +85,7 @@ function Calculator() {
                     required: "Creatinine is required",
                     min: { value: 0.0, message: "Creatinine is unreasonably low" },
                     max: { value: 2.0, message: "Creatinine is unreasonably high" },
+                    valueAsNumber: true,
                   })}
                   error={errors.creatinine?.message as string}
                 />
@@ -98,6 +101,7 @@ function Calculator() {
                     required: "Age is required",
                     min: { value: 18, message: "Minimum age is 18" },
                     max: { value: 99, message: "Maximum age is 99" },
+                    valueAsNumber: true,
                   })}
                   error={errors.age?.message as string}
                 />
@@ -111,6 +115,7 @@ function Calculator() {
                   register={() => register("boneMarrowPlasmaCells", {
                     min: { value: 0.0, message: "Percentage is unreasonably low" },
                     max: { value: 100.0, message: "Percentage is unreasonably high" },
+                    valueAsNumber: true,
                   })}
                   error={errors.boneMarrowPlasmaCells?.message as string}
                 />
@@ -133,6 +138,7 @@ function Calculator() {
                   className="rounded-md border shadow-sm"
                   captionLayout="dropdown"
                   required={false}
+                  {...register("labworkDate", { valueAsDate: true }) }
                 />
 
                 {/* Hemoglobin */}
@@ -145,6 +151,7 @@ function Calculator() {
                   register={() => register("hemoglobin", {
                     min: { value: 0.0, message: "Hemoglobin is unreasonably low" },
                     max: { value: 20.0, message: "Hemoglobin is unreasonably high" },
+                    valueAsNumber: true,
                   })}
                   error={errors.hemoglobin?.message as string}
                 />
@@ -157,15 +164,17 @@ function Calculator() {
         </div> */}
           </form>
         </div>
-        {
-          /* render only if there are no validation errors */
-          Object.keys(errors).length === 0 &&
           <div className="flex-1 ml-8 ">
             <div className="sticky top-8">
-              <PredictionResult {...formData}/>
+              <h2>Prediction result</h2>
+              {
+                /* render only if there are no validation errors */
+                Object.keys(errors).length === 0 ?
+                  <PredictionResult {...formData}/>:
+                  <p className="text-muted-foreground">Please fill out all required fields correctly to see the prediction result.</p>
+              }
             </div>
           </div>
-        }
       </div>
     </>
   );

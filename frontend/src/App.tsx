@@ -8,8 +8,8 @@ import { Suspense, lazy } from 'react';
 import PageWrapper from './components/layout/PageWrapper';
 import { Spinner } from './components/ui/spinner';
 
-const Home = lazy(() => import('./pages/Home'));
-const About = lazy(() => import('./pages/About'));
+// const Home = lazy(() => import('./pages/Home'));
+// const About = lazy(() => import('./pages/About'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const Calculator = lazy(() => import('./pages/Calculator/Calculator'));
 
@@ -23,9 +23,9 @@ function App() {
           <Navbar />
           <Suspense fallback={<Spinner className='w-full flex justify-center items-center' />}>
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/calculator" element={<Calculator />} />
-              <Route path="/about" element={<About />} />
+              {/* <Route path="/" element={<Home />} /> */}
+              <Route path="/" element={<Calculator />} />
+              {/* <Route path="/about" element={<About />} /> */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

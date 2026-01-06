@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom"
+// import { Link } from "react-router-dom"
 import {
   NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
+  // NavigationMenuItem,
+  // NavigationMenuLink,
   NavigationMenuList,
 } from "../ui/navigation-menu"
 import { ModeToggle } from "./mode-toggle"
@@ -15,31 +15,30 @@ function Navbar() {
         <img src={Logo} alt="HPI Logo" className="h-8" />
         <NavigationMenu>
           <NavigationMenuList>
-            <NavigationMenuItem>
-              {/* Home */}
+            {/* Home */}
+            {/* <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link to="/">Home</Link>
               </NavigationMenuLink>
-            </NavigationMenuItem>
+            </NavigationMenuItem> */}
 
             {/* Calculator */}
-            <NavigationMenuItem>
+            {/* <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link to="/calculator">Calculator</Link>
               </NavigationMenuLink>
-            </NavigationMenuItem>
+            </NavigationMenuItem> */}
 
             {/* About */}
-            <NavigationMenuItem>
+            {/* <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link to="/about">About</Link>
               </NavigationMenuLink>
-            </NavigationMenuItem>
+            </NavigationMenuItem> */}
           </NavigationMenuList>
         </NavigationMenu>
       </div>
       <div className="right-0">
-
         <ModeToggle />
       </div>
     </div>
