@@ -25,7 +25,7 @@ app.add_middleware(
 async def main():
     return {"message": "Hello World"}
 
-@app.get("/health")
+@app.get("/healthz")
 async def health_check():
     return "OK"
 
@@ -40,8 +40,12 @@ class PredictionRequest(BaseModel):
     labworkDate: Optional[date] = None
 
 
-TIME_STEP_IN_DAYS = 30
-RISK_POINTS_IN_FUTURE = 10
+TIME_STEP_IN_DAYS = 60
+RISK_POINTS_IN_FUTURE = 20
+
+def introduce_noise(value: float, noise_level: float = 0.05) -> float:
+    noise = (random() * 2 - 1) * noise_level * value
+    return value + noise
 
 @app.post("/mm_predict")
 async def mm_predict(request: Request):
@@ -55,14 +59,15 @@ async def mm_predict(request: Request):
         print("the body was: ", body)
         print("--------------------------------------")
         return {"error": str(e)}
-    print(user_data)
 
     risk_assessements = []
     start_date = date.today()
     for i in range(RISK_POINTS_IN_FUTURE):
         future_date = start_date + timedelta(days=TIME_STEP_IN_DAYS * (i + 1))
         probability = random() * min(0.1 * i, 1.0)
-        risk_assessements.append({"date": future_date.isoformat(), "probability": probability})
+        low = introduce_noise(probability * 0.8)
+        high = introduce_noise(probability * 1.2)
+        risk_assessements.append({"date": future_date.isoformat(), "probability": probability, "low": low, "high": high})
 
     return {
         "risk": risk_assessements,

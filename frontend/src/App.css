@@ -1,5 +1,7 @@
 :root{
   --primary: #e2520d;
+  --primary-muted: #c4450a;
+  --primary-light: #f28c49;
 }
 
 h1 {
