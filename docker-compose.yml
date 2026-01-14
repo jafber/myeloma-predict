@@ -1,3 +1,5 @@
+# This compose file serves frontend behind http://localhost:5173
+# and backend behind http://localhost:5173/api
 services:
   backend:
     image: jafber/myeloma-predict-backend
@@ -5,8 +7,6 @@ services:
       context: ./backend
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/healthz"]
-    ports:
-      - "8000:8000"
 
   frontend:
     image: jafber/myeloma-predict-frontend
@@ -19,6 +19,7 @@ services:
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost"]
 
+  # caddy reverse proxy serves both front- and backend from the same port
   caddy:
     image: caddy:2.11
     ports:

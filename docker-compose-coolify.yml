@@ -1,3 +1,5 @@
+# This is the simplified compose file for serving the containers in coolify
+# See https://coolify.io/docs/knowledge-base/docker/compose
 services:
   backend:
     image: jafber/myeloma-predict-backend
