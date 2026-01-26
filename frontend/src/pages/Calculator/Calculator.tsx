@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Activity, useEffect, useState } from 'react';
 import {
   FieldDescription,
   FieldGroup,
@@ -138,7 +138,7 @@ function Calculator() {
                   className="rounded-md border shadow-sm"
                   captionLayout="dropdown"
                   required={false}
-                  {...register("labworkDate", { valueAsDate: true }) }
+                  {...register("labworkDate", { valueAsDate: true })}
                 />
 
                 {/* Hemoglobin */}
@@ -164,17 +164,18 @@ function Calculator() {
         </div> */}
           </form>
         </div>
-          <div className="flex-1 ml-8 ">
-            <div className="sticky top-8">
-              <h2>Prediction result</h2>
-              {
-                /* render only if there are no validation errors */
-                Object.keys(errors).length === 0 ?
-                  <PredictionResult {...formData}/>:
-                  <p className="text-muted-foreground">Please fill out all required fields correctly to see the prediction result.</p>
-              }
-            </div>
+        <div className="flex-1 ml-8 ">
+          <div className="sticky top-8">
+            <h2>Prediction result</h2>
+            <Activity name="Calculating risk..." mode={Object.keys(errors).length === 0 ? "visible" : "hidden"}>
+              <PredictionResult {...formData} />
+            </Activity>
+            {
+              Object.keys(errors).length > 0 &&
+              <p className="text-muted-foreground">Please fill out all required fields correctly to see the prediction result.</p>
+            }
           </div>
+        </div>
       </div>
     </>
   );

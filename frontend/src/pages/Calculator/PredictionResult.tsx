@@ -16,7 +16,7 @@ import {
     ChartTooltipContent,
     type ChartConfig,
 } from "../../components/ui/chart"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../../components/ui/button";
 import { FullscreenIcon } from "lucide-react";
 
@@ -57,16 +57,26 @@ function PredictionResult(props: FormDataType) {
         queryKey: ['prediction', props],
         queryFn: () => requestPrediction(props),
     })
+    const [loadingTimeStart, setLoadingTimeStart] = useState<number | null>(null);
+
+    useEffect(() => {
+        // reset loading timer
+        setLoadingTimeStart(Date.now());
+    }, [isLoading]);
+
     const [isFullScreen, setIsFullScreen] = useState(false);
 
     if (isLoading) {
-        return <Spinner className='w-full flex justify-center items-center h-8' />;
+        const loadingDuration = loadingTimeStart ? Date.now() - loadingTimeStart : 0;
+        if (loadingDuration > 500) {
+            // show spinner only if loading takes more than 500ms
+            return <Spinner className='w-full flex justify-center items-center h-8' />;
+        }
     }
 
     if (error) {
         return <div>Error: {error.message}</div>;
     }
-    console.log("Prediction data:", data);
 
     return (
         <Card className={isFullScreen ? "fixed top-0 left-0 w-screen h-screen z-50 overflow-auto" : ""}>
@@ -112,6 +122,7 @@ function PredictionResult(props: FormDataType) {
                                 stroke="var(--primary)"
                                 strokeWidth={3}
                                 dot={false}
+                                isAnimationActive={false}
                             />
                             <Line
                                 dataKey="low"
@@ -119,6 +130,7 @@ function PredictionResult(props: FormDataType) {
                                 stroke="var(--primary-muted)"
                                 opacity={0.4}
                                 dot={false}
+                                isAnimationActive={false}
                             />
                             <Line
                                 dataKey="high"
@@ -127,6 +139,7 @@ function PredictionResult(props: FormDataType) {
                                 opacity={0.4}
                                 strokeWidth={2}
                                 dot={false}
+                                isAnimationActive={false}
                             />
                         </LineChart>
                     </ChartContainer>
