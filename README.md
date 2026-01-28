@@ -27,6 +27,8 @@ npm run dev
 
 ### Backend
 
+**Note: scikit-survival requires ecos requires visual c++**
+
 To run the API on [http://localhost:8000](http://localhost:8000):
 
 ```

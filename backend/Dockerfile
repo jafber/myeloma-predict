@@ -9,8 +9,8 @@ WORKDIR /app
 # build-essential for ?, curl for health check
 RUN apt-get update && apt-get install -y build-essential curl
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements.txt requirements-prod.txt .
+RUN pip install --no-cache-dir -r requirements.txt && pip install --no-cache-dir -r requirements-prod.txt
 
 COPY main.py .
 
