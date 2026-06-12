@@ -4,6 +4,7 @@ import PredictionResult from "./components/PredictionResult";
 import PredictionError from "./components/PredictionError";
 import PredictionSkeleton from "./components/PredictionSkeleton";
 import AboutSection from "./components/AboutSection";
+import DisclaimerModal from "./components/DisclaimerModal";
 import GitHubIcon from "./icons/github.svg?react";
 import type { PatientFeatures, PredictionResponse } from "./types";
 import { requestPrediction } from "./api";
@@ -17,6 +18,7 @@ const DEFAULT_FEATURES: PatientFeatures = {
 };
 
 export default function App() {
+  const [disclaimerAcknowledged, setDisclaimerAcknowledged] = useState(false);
   const [features, setFeatures] = useState<PatientFeatures | null>(DEFAULT_FEATURES);
   const [predictionResult, setPredictionResult] = useState<PredictionResponse | null>(null);
   const abortControllerRef = useRef(new AbortController())
@@ -46,6 +48,9 @@ export default function App() {
 
   return (
     <>
+      {!disclaimerAcknowledged && (
+        <DisclaimerModal onAcknowledge={() => setDisclaimerAcknowledged(true)} />
+      )}
       <header className="bg-teal-700 text-white shadow shrink-0 flex justify-center">
         <div className="max-w-6xl w-full py-4 px-6 gap-6 flex items-center justify-between">
           <div>
